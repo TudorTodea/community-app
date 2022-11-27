@@ -1,0 +1,52 @@
+.navbar-brand{
+    cursor: pointer;
+}
+.dropdown-item{cursor: pointer;}
+.nav-link{cursor: pointer;}
+.modalHeaderInfo{
+    color: rgb(121, 119, 119);
+    font-weight: 400;
+    font-size: 12px;
+}
+.input-modal{
+    background-color:#312f2f;
+    border-radius: 5px;
+    border: 2px groove #8b8989;
+    width: 470px;
+}
+.input-modal:focus{
+    background-color:#312f2f;
+}
+
+.nameRequired{
+    color:red;
+    font-size: 12px;
+}
+
+.communitiesText{
+    font-size: 12px;
+    font-weight: 400;
+    margin-left: 15px;
+}
+
+.navbarUserAvatar{
+    vertical-align: middle;
+      width: 25px;
+      height: 25px;
+      border-radius: 50%;
+    }
+
+    ul.dropdown-menu {
+        background-color: #212529;
+        color: white;
+    }
+    .navbar-nav > li > .dropdown-menu a {
+        color: white;
+    }
+    .navbar-nav > li > .dropdown-menu a:hover { background-color: #303030; color: white;}
+
+    .navbarCommunitiesAvatars{
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+    }
