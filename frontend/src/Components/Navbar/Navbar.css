@@ -40,10 +40,10 @@
         background-color: #212529;
         color: white;
     }
-    .navbar-nav > li > .dropdown-menu a {
+    .navbar-nav > li > .dropdown-menu div {
         color: white;
     }
-    .navbar-nav > li > .dropdown-menu a:hover { background-color: #303030; color: white;}
+    .navbar-nav > li > .dropdown-menu div:hover { background-color: #303030; color: white;}
 
     .navbarCommunitiesAvatars{
         width: 30px;
