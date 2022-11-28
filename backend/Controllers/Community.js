@@ -35,3 +35,17 @@ module.exports.getCommunitiesByUserId = async (req, res, next) => {
     next(err);
   }
 }
+
+module.exports.getCommunityInfo = async (req, res, next) => {
+  try {
+    const { communityName } = req.params;
+    const communityCount = await Community.findOne({ Name: communityName })
+    const count = communityCount.members.length
+    const community = await Community.findOne({ Name: communityName })
+
+    return res.json({ status: true, community, count })
+
+  } catch (err) {
+    next(err);
+  }
+}

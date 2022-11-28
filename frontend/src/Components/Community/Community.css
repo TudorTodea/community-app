@@ -1,0 +1,191 @@
+
+.addPostContainer{
+    margin-top: 2%;
+    width: 640px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:#1A1A1B;
+    color: #D7DADC;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    border: 2px solid #343536;
+    display: flex;
+    height: 60px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+@media screen and (max-width: 1920px) and (min-width: 600px) {
+    div.communityContainer {
+      margin-left: 20%;
+    }
+  }
+.communityContainer{
+    width: 680px;
+  }
+input[id="#AddPost"]{
+    background-color:#1A1A1B;
+    width: 530px;
+    border: 2px solid #343536;
+    }
+
+    input[id="#AddPost"]:hover{
+        background-color:#121111;
+        width: 530px;
+        border: 2px groove #949494;
+        cursor: pointer;
+        }
+        input[id="#AddDescription"]{
+            background-color:#222020;
+            height: 30px;
+            width: 235px;
+            border: 2px groove #222020;
+            }
+.form-control{
+    margin-left: 5px;
+    margin-top: 10px;
+    
+}
+.postsContainer{
+    margin-top: 3%;
+    width: 640px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:#1A1A1B;
+    color: #D7DADC;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    border: 2px solid #343536;
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.form-control:focus{
+    background-color:#222020;
+}
+.postsContainer:hover{
+    border: 2px groove #949494;
+}
+.contentContainer{
+    word-wrap: break-word;
+    padding-right:5px;
+    text-align: justify;
+}
+.postInfo{
+    display: flex;
+    font-size: 10px;
+    font-weight: 300;
+    opacity: 0.5;
+}
+
+.likeBar{
+    padding-top: 10px;
+    position: absolute;
+    background-color: #222225cc;
+    width: 27px;
+    height: 100%;
+    opacity: 0.6;
+}
+
+.textContainer{
+    padding-top: 10px;
+    padding-left: 40px;
+    padding-bottom: 10px;
+    padding-right: 10px;
+}
+
+.communityHeader{
+    background-color:#1A1A1B;
+    width: 100%;
+}
+.communityHeaderInfo{
+    display: flex;
+    width: 640px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.communityAvatar{
+margin-top: 10px;
+margin-bottom: 10px;
+vertical-align: middle;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.communityHeaderTitle{
+    font-size:30px;
+    font-weight: bold;
+    margin-left:30px;
+    margin-top: 20px;
+    display:flex;
+}
+.communityHeaderButtonContainer{
+    width: 50px;
+    height: 50px;
+    margin-top: 25px;
+    margin-left: 20px;
+}
+
+.userAvatar{
+margin-top: 12px;
+margin-left: 5px;
+vertical-align: middle;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.communityInfoContainer{
+    height: 300px;
+    width: 250px;
+    background-color:#1A1A1B;
+    color: #D7DADC;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 2px solid #343536;
+    font-family: Arial, Helvetica, sans-serif;
+   height: fit-content;
+}
+.communityInfoHeader{
+    padding-top: 5px;
+    padding-left: 5px;
+    font-size: 13px;
+    font-weight: bold;
+    color:#818384;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.addPictureButton{
+    margin-top: 7px;
+    margin-left: 5px;
+}
+
+
+.communityCreationDate{
+    padding-top: 5px;
+    padding-left: 5px;
+    color:#818384;
+}
+.communityMembers{
+    color:#818384;
+    padding-left: 5px;
+    font-size: 13px;
+}
+.descriptionCharRemaining{
+    color:#818384;
+    font-size: 12px;
+    padding-left: 5px;
+}
+
+.descriptionTextArea{
+    margin-left: 1%;
+    width: 400px;
+    height: 150px;
+    color: #D7DADC;
+    margin-top: 1%;
+    background-color: #312f2f;
+    font-size: 13px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
