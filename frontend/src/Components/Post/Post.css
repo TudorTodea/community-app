@@ -1,0 +1,93 @@
+
+.postContainer{
+    margin-top: 2%;
+    width: 740px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:#1a1a1B;
+    color: #D7DADC;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.postFooter{
+    display: flex;
+    margin-top: 10px;
+    opacity: 0.5;
+    font-size: 13px;
+    font-weight: bold;
+
+}
+
+.picker{
+  position: absolute;
+  width: 50px;
+}
+
+.postTextArea{
+    margin-left: 1%;
+    width: 98%;
+    height: 150px;
+    color: #D7DADC;
+    margin-top: 1%;
+    background-color:#1A1A1B;
+    font-size: 13px;
+    border-radius: 5px;
+    border: 2px solid #343536;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.textAreaFooter{
+    margin-left: 1%;
+    width: 98%;
+    border-radius: 5px;
+    height: 60px;
+
+}
+
+.noComments{
+    text-align: center;
+    opacity: 0.5;
+}
+.commentsContainer{
+  margin-top: 50px;
+  width:98%;
+}
+
+.emoji {
+ position: relative;
+ height:5px;
+  
+}
+ .emoji svg {
+    font-size: 1.5rem;
+    cursor: pointer;
+    margin-top: 5px;
+  }
+.EmojiPickerReact {
+      position: absolute;
+      left: 30px;
+      top: -300px;
+      background-color: #080420;
+      box-shadow: 0 5px 10px #9a86f3;
+  }
+ .EmojiPickerReact .emoji-scroll-wrapper::-webkit-scrollbar {
+      background-color: #080420;
+      width: 5px;}
+      .button-container .EmojiPickerReact .emoji-scroll-wrapper::-webkit-scrollbar::-webkit-scrollbar-thumb {
+        background-color: #9a86f3;
+      }
+    
+ .EmojiPickerReact .emoji-categories button  {
+          
+            filter: contrast(0);
+          
+        }
+ .EmojiPickerReact .emoji-search {
+          background-color: transparent;
+          border-color: #9a86f3;
+        }
+ .EmojiPickerReact .emoji-group:before {
+          background-color: #080420;
+        }
