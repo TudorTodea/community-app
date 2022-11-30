@@ -26,11 +26,70 @@ module.exports.createCommunity = async (req, res, next) => {
     next(err);
   }
 }
-module.exports.getCommunitiesByUserId = async (req, res, next) => {
+module.exports.getCommunitiesModeratedByUserId = async (req, res, next) => {
   try {
     const userId = req.params.id
     const communities = await Community.find({ creatorId: userId });
     return res.json({ status: true, communities })
+  } catch (err) {
+    next(err);
+  }
+}
+module.exports.getCommunitiesByUserId = async (req, res, next) => {
+  try {
+    const userId = req.params.id
+    const communities = await Community.find({ members: userId },)
+    return res.json({ status: true, communities })
+  } catch (err) {
+    next(err);
+  }
+}
+module.exports.setCommunityDescription = async (req, res, next) => {
+  try {
+
+    Community.findOneAndUpdate(
+      { Name: req.body.communityName },
+      { description: req.body.description },
+      function (error, success) {
+        if (error) {
+          return res.json({ status: false, error })
+        } else {
+          return res.json({ status: true })
+        }
+      });
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports.joinCommunity = async (req, res, next) => {
+  try {
+    const { communityName, userId } = req.body;
+    const user = await Community.findOne({ Name: communityName, members: userId });
+    if (user) {
+      Community.findOneAndUpdate(
+        { Name: communityName },
+        { $pull: { members: userId } },
+        function (error, success) {
+          if (error) {
+            return res.json({ status: false, error })
+          } else {
+            return res.json({ status: true })
+          }
+        });
+    } else {
+      Community.findOneAndUpdate(
+        { Name: communityName },
+        { $push: { members: userId } },
+        function (error, success) {
+          if (error) {
+            return res.json({ status: false, error })
+          } else {
+            return res.json({ status: true })
+          }
+        });
+    }
+
   } catch (err) {
     next(err);
   }
@@ -49,3 +108,4 @@ module.exports.getCommunityInfo = async (req, res, next) => {
     next(err);
   }
 }
+
