@@ -109,3 +109,37 @@ module.exports.getCommunityInfo = async (req, res, next) => {
   }
 }
 
+module.exports.searchCommunities = async (req, res, next) => {
+  try {
+    const { Name } = req.query
+
+    const agg = [
+      {
+        $search: {
+          autocomplete: {
+            query: Name,
+            path: 'Name',
+            fuzzy: {
+              maxEdits: 2,
+            },
+          },
+        },
+      },
+      {
+        $limit: 5,
+      },
+      {
+        $project: {
+          _id: 0,
+          Name: 1,
+          avatar: 1
+        },
+      },
+    ]
+    const response = await Community.aggregate(agg)
+    return res.json(response)
+  } catch (error) {
+    console.log(error)
+    return res.json([])
+  }
+}

@@ -7,6 +7,8 @@ import { Home } from './Components/Home/Home';
 import AddPost from './Components/AddPost/AddPost';
 import Community from './Components/Community/Community';
 import Post from './Components/Post/Post';
+import Search from './Components/Search/Search';
+
 function App() {
   return (
     <div className='App'>
@@ -18,6 +20,8 @@ function App() {
         <Route path="/add-post/:communityName" element={<AddPost />} />
         <Route path="/Community/:communityName" element={<Community />} />
         <Route path="/Community/:communityName/:postId" element={<Post />} />
+        <Route path="/search" element={<Search />} />
+
       </Routes>
     </div>
   );
