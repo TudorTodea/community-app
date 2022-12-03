@@ -29,6 +29,12 @@ const userSchema = new mongoose.Schema({
         type: String,
         maxLength: 200,
         default: ''
+    },
+    socialMedia: {
+        facebook: { type: String, default: '' },
+        instagram: { type: String, default: '' },
+        reddit: { type: String, default: '' },
+
     }
 
 })
