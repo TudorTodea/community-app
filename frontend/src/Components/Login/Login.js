@@ -15,17 +15,17 @@ export const Login = () => {
     e.preventDefault();
     const response = await axios.post(loginRoute, credentials)
     if (response.data.status) {
-      authCtx.login(response.data.user.username, response.data.user._id, response.data.user.avatarImage)
+      authCtx.login(response.data.user.username, response.data.user._id, response.data.user.avatarImage, response.data.token)
       navigate('/')
     } else {
       toast.error(response.data.msg, toastOptions)
     }
   }
   useEffect(() => {
-    if (authCtx.userId) {
+    if (authCtx.isLoggedIn) {
       navigate('/')
     }
-  }, [authCtx.userId])
+  }, [authCtx.isLoggedIn])
   return (
     <div className="Login-form-container">
       <form className="Login-form" onSubmit={formSubmitHandler}>

@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-
+const jwt = require('jsonwebtoken');
 const userSchema = new mongoose.Schema({
     email: {
         type: String,
@@ -35,8 +35,11 @@ const userSchema = new mongoose.Schema({
         instagram: { type: String, default: '' },
         reddit: { type: String, default: '' },
 
-    }
+    },
+
 
 })
-
+userSchema.methods.getSignedToken = function () {
+    return jwt.sign({ id: this._id }, 'secret123', { expiresIn: '60min' });
+};
 module.exports = mongoose.model("Users", userSchema)
