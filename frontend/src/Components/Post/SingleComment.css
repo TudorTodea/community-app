@@ -1,0 +1,63 @@
+
+  .commentCard{
+    transition: 0.3s;
+    height: 100%;
+  }
+  .textComment{
+    word-wrap: break-word;
+    float: right;
+  width: 100%;
+  max-width: 1200px;
+  font-size: 14px;
+  color: #D7DADC;
+  font-family: Arial, Helvetica, sans-serif;
+  
+  }
+
+  .imgComment{
+    float: left;
+    border-radius: 10px;
+  }
+  
+  .photoUser {
+    height: 36px;
+    width: 36px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+  
+  .commentAuthor{
+    cursor: pointer;
+    width: fit-content;
+    font-size: 12px;
+  }
+  .commentAuthor:hover{
+    text-decoration: underline;
+  }
+
+  .commentFooter{
+    margin-top: 15px;
+    opacity: 0.5;
+  }
+
+  .footerButtons{
+    background-color: #1A1A1B;
+    color: white;
+    border: none;
+  }
+  .footerButtons:hover{
+    background-color: #434647;
+    border-radius: 3px;
+  }
+  .upvoteButton:hover{
+color:#FF4500
+  }
+  
+.downvoteButton:hover{
+    color: #7193FF;
+  }
+
+  .textParagraph{
+    margin-left: 45px;
+  }
