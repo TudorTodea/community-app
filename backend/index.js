@@ -14,6 +14,7 @@ app.use(cors())
 app.use(express.json());
 app.use("/api/auth", user)
 app.use("/api/community", community)
+app.use("/api/comment", comment)
 app.use("/api/post", post)
 app.use('/api/likedislike', likedislike)
 
