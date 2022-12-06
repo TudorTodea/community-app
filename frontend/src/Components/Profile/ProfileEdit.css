@@ -1,0 +1,7 @@
+.showHint{
+    color: #4fbcff;
+    font-size: 12px;
+}
+.showHint:hover{
+    text-decoration: underline;
+}

@@ -12,9 +12,10 @@ const Profile = () => {
     useEffect(() => {
         const getUser = async () => {
             const response = await axios.get(`http://localhost:5000/api/auth/getUser/${username}`)
-            console.log(response);
-            if (response.status) {
+            if (response.data.status) {
                 setUser(response.data.user)
+            } else {
+                navigate('/PageNotFound')
             }
         }
         getUser();
@@ -54,7 +55,7 @@ const Profile = () => {
                     </div>
 
                     <div className='mt-3 mb-3'>
-                        <button onClick={() => { navigate(`/profile/edit/${username}`) }}><FiSettings size={25} color='white' className='mx-auto' /></button>
+                        {username === localStorage.getItem('username') ? <button onClick={() => { navigate(`/profile/edit/${username}`) }}><FiSettings size={25} color='white' className='mx-auto' /></button> : null}
                     </div>
                 </div>
             </div >

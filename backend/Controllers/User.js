@@ -51,7 +51,79 @@ module.exports.getUser = async (req, res, next) => {
     }
 }
 
+module.exports.updateUserAvatar = async (req, res, next) => {
+    try {
+        const { avatar, userId } = req.body;
 
+        User.findOneAndUpdate(
+            { _id: userId },
+            { avatarImage: avatar },
+            function (error, success) {
+                if (error) {
+                    return res.json({ status: false, error })
+                } else {
+                    console.log(success);
+                    return res.json({ status: true })
+
+                }
+            });
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports.setUserDescription = async (req, res, next) => {
+    try {
+
+        User.findOneAndUpdate(
+            { _id: req.body.userId },
+            { description: req.body.description },
+            function (error, success) {
+                if (error) {
+                    return res.json({ status: false, error })
+                } else {
+                    return res.json({ status: true })
+                }
+            });
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports.updateSocialMedia = async (req, res, next) => {
+    try {
+        const { facebook, instagram, reddit } = req.body;
+        if (facebook) {
+            User.findByIdAndUpdate(req.body.userId, { $set: { 'socialMedia.facebook': facebook } }, function (err, doc) {
+                if (err) {
+                    return res.json({ status: false, err })
+                } else {
+                    return res.json({ status: true })
+                }
+            });
+        }
+        if (instagram) {
+            User.findByIdAndUpdate(req.body.userId, { $set: { 'socialMedia.instagram': instagram } }, function (err, doc) {
+                if (err) {
+                    return res.json({ status: false, err })
+                } else {
+                    return res.json({ status: true })
+                }
+            });
+        }
+        if (reddit) {
+            User.findByIdAndUpdate(req.body.userId, { $set: { 'socialMedia.reddit': reddit } }, function (err, doc) {
+                if (err) {
+                    return res.json({ status: false, err })
+                } else {
+                    return res.json({ status: true })
+                }
+            });
+        }
+    } catch (err) {
+        next(err);
+    }
+}
 const sendToken = (user, statusCode, res) => {
     const token = user.getSignedToken();
     res.status(statusCode).json({
