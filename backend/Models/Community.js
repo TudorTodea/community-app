@@ -27,8 +27,11 @@ const communitySchema = new mongoose.Schema({
     banner: {
         type: String,
         default: ''
+    },
+    mods: {
+        type: Array
     }
 
-})
+}, { timestamps: true })
 
 module.exports = mongoose.model("Community", communitySchema)

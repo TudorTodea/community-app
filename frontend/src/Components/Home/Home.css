@@ -1,1 +1,112 @@
 
+.addPostContainer{
+    margin-top: 2%;
+    width: 640px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:#312f2f;
+    color: #D7DADC;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    border: 2px groove #8b8989;
+    display: flex;
+    height: 50px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+input[id="#AddPost"]{
+    background-color:#312f2f;
+    width: 550px;
+    }
+.form-control{
+
+    margin-top: 3.5px;
+}
+.postsContainer{
+    margin-top: 5%;
+    width: 640px;
+    margin-right: auto;
+    margin-left: auto;
+    background-color:#312f2f;
+    color: #D7DADC;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    border: 2px solid #343536;
+    font-family: Arial, Helvetica, sans-serif;
+}
+.form-control:focus{
+    background-color:#312f2f;
+}
+.postsContainer:hover{
+    border: 2px groove #fefafa;
+}
+
+.postInfo{
+
+    font-size: 10px;
+    font-weight: 300;
+    opacity: 0.5;
+}
+
+.likeBarContainer{
+    position: absolute;
+    background-color: #222225cc;
+    width: 20px;
+    height: 100%;
+}
+
+.textContainer{
+    padding-left: 30px;
+}
+.underline-on-hover:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.postHeaderInfoContainer{
+    display: flex;
+    font-size: 10px;
+    font-weight: 400;
+}
+.postHeaderInfo{
+    margin-top: 5px;
+    opacity: 0.5;
+    display: flex;
+}
+
+.postComAvatar{
+    margin-right: 5px;
+    vertical-align: middle;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.communitiesRecommendedContainer{
+    height: 400px;
+    width: 300px;
+    background-color:#1A1A1B;
+    color: #D7DADC;
+    overflow: hidden;
+    border-radius: 5px;
+    border: 2px solid #343536;
+    font-family: Arial, Helvetica, sans-serif;
+   height: fit-content;
+}
+
+@media screen and (max-width: 1920px) and (min-width: 600px) {
+    div.homeContainer {
+      margin-left: 20%;
+    }
+  }
+.homeContainer{
+    width: 680px;
+  }
+
+  .randomCommunitiesAvatar{
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+  }
