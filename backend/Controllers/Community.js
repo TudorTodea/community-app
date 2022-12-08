@@ -14,7 +14,7 @@ module.exports.createCommunity = async (req, res, next) => {
 
     Community.findOneAndUpdate(
       { Name },
-      { $push: { members: creatorId } },
+      { $push: { members: creatorId, mods: creatorId } },
       function (error, success) {
         if (error) {
         } else {
@@ -29,7 +29,7 @@ module.exports.createCommunity = async (req, res, next) => {
 module.exports.getCommunitiesModeratedByUserId = async (req, res, next) => {
   try {
     const userId = req.params.id
-    const communities = await Community.find({ creatorId: userId });
+    const communities = await Community.find({ mods: userId });
     return res.json({ status: true, communities })
   } catch (err) {
     next(err);
@@ -98,12 +98,14 @@ module.exports.joinCommunity = async (req, res, next) => {
 module.exports.getCommunityInfo = async (req, res, next) => {
   try {
     const { communityName } = req.params;
-    const communityCount = await Community.findOne({ Name: communityName })
-    const count = communityCount.members.length
     const community = await Community.findOne({ Name: communityName })
-
-    return res.json({ status: true, community, count })
-
+    if (community) {
+      const communityCount = await Community.findOne({ Name: communityName })
+      const count = communityCount.members.length
+      return res.json({ status: true, community, count })
+    } else {
+      return res.json({ status: false, error: 'Community not found' })
+    }
   } catch (err) {
     next(err);
   }
@@ -141,5 +143,56 @@ module.exports.searchCommunities = async (req, res, next) => {
   } catch (error) {
     console.log(error)
     return res.json([])
+  }
+}
+
+
+
+module.exports.getRandomCommunities = async (req, res, next) => {
+  try {
+    const communities = await Community.aggregate([{ $sample: { size: 5 } }]);
+    if (communities) {
+      res.json({ status: true, communities })
+    } else {
+      res.json({ status: false })
+    }
+  } catch (err) {
+    next(err);
+  }
+}
+
+module.exports.communityAddImage = async (req, res, next) => {
+  try {
+    const { avatar, banner, communityName } = req.body;
+    if (avatar) {
+      Community.findOneAndUpdate(
+        { Name: communityName },
+        { avatar: avatar },
+        function (error, success) {
+          if (error) {
+            return res.json({ status: false, error })
+          } else {
+            console.log(success);
+            return res.json({ status: true })
+
+          }
+        });
+    }
+    if (banner) {
+      Community.findOneAndUpdate(
+        { Name: communityName },
+        { banner: banner },
+        function (error, success) {
+          if (error) {
+            return res.json({ status: false, error })
+          } else {
+            console.log(success);
+            return res.json({ status: true })
+
+          }
+        });
+    }
+  } catch (err) {
+    next(err);
   }
 }
