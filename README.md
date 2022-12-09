@@ -8,6 +8,9 @@ An application where you can join/create communities  create posts and discuss d
 
 ## Project Screen Shot(s)
 
+### Sign Up
+![alt text](https://i.ibb.co/1mJSyPb/Screenshot-6.png)
+
 ### A community Page
 ![alt text](https://i.ibb.co/Qkg72tm/Screenshot-1.png)
 
