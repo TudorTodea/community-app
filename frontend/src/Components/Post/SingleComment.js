@@ -73,7 +73,7 @@ const SingleComment = ({ commentId, writerId, author, content, currentUserId, av
         if (CommentValue.length > 0) {
             if (authCtx.isLoggedIn) {
                 const variables = {
-                    userId: writerId,
+                    userId: localStorage.getItem('userid'),
                     postId: postId,
                     responseTo: commentId,
                     content: CommentValue

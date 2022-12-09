@@ -1,0 +1,13 @@
+.pageNotFoundContainer{
+    margin-left: auto;
+    margin-left: auto;
+}
+.image404{
+height: 400px;
+}
+.textNotFound{
+    font-size: 4rem;
+    background: -webkit-linear-gradient(rgb(181, 80, 141), rgb(235, 78, 141));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

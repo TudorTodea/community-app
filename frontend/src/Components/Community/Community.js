@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import './Community.css'
 import { AiFillPicture } from "react-icons/ai";
@@ -8,17 +8,25 @@ import axios from 'axios';
 import { Grid } from '../Grid/Grid';
 import { BiUser } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
+import AuthContext from '../../store/auth-context';
 const Community = () => {
   const { communityName } = useParams()
   const navigate = useNavigate();
   const [posts, setPosts] = useState([]);
   const [description, setDescription] = useState('');
   const [joined, setJoined] = useState(false);
+  const [mod, setMod] = useState(false);
   const [nrMembers, setNrMembers] = useState(0);
+  const [date, setDate] = useState()
   const [url, setUrl] = useState({ avatar: '', banner: '' });
+  const authCtx = useContext(AuthContext);
 
   const joinCommunityHandler = async (e) => {
     e.preventDefault()
+    if (!authCtx.isLoggedIn) {
+      navigate(`/login`)
+      return
+    }
     const response = await axios.post(`http://localhost:5000/api/community/joinCommunity/`, { communityName, userId: localStorage.getItem('userid') })
     if (response.status) {
       if (joined) {
@@ -29,6 +37,7 @@ const Community = () => {
       setJoined(!joined);
     }
   }
+
 
   useEffect(() => {
     const getPosts = async () => {
@@ -42,17 +51,25 @@ const Community = () => {
       if (response.data.status) {
         setDescription(response.data.community.description)
         setNrMembers(response.data.count);
+        setDate(new Date(response.data.community.createdAt).toUTCString().slice(0, 16));
         setUrl({ avatar: response.data.community.avatar, banner: response.data.community.banner })
+        if (response.data.community.mods.includes(localStorage.getItem('userid'))) {
+          setMod(true);
+        }
         if (response.data.community.members.includes(localStorage.getItem('userid'))) {
           setJoined(true);
         } else {
           setJoined(false);
         }
+      } else {
+        navigate(`/PageNotFound`)
       }
+
     }
+
     getCommunityInfo();
     getPosts();
-  }, [communityName])
+  }, [communityName, localStorage.getItem('userid')])
   return (
     <div>
       <div className='communityIMG' style={{
@@ -64,7 +81,6 @@ const Community = () => {
             url(${url.banner}), #1c1c1c`,
         height: '300px',
         backgroundSize: '100%, cover',
-        backgroundPosition: 'center, center',
         width: '100%',
         position: 'relative'
       }}
@@ -79,15 +95,16 @@ const Community = () => {
             <form onSubmit={joinCommunityHandler}>
               <button type="submit" className="btn btn-light rounded-pill" >{joined ? 'Leave' : 'Join'}</button>
             </form>
-            <form onSubmit={() => navigate(`/community/settings/${communityName}`)}>
-              <button type='submit' className='ms-3'><FiEdit size={35} color='white' /></button>
-            </form>
+            {mod &&
+              <form onSubmit={() => navigate(`/community/settings/${communityName}`)}>
+                <button type='submit' className='ms-3'><FiEdit size={35} color='white' /></button>
+              </form>}
           </div>
         </div>
       </div>
       <div className='d-flex'>
         <div className='communityContainer col-12 col-md-6'>
-          <div className='addPostContainer col-md-10 col-12'><img alt='userAvatar' src={localStorage.getItem('avatarImage')} className='userAvatar' />
+          <div className='addPostContainer col-md-10 col-12'>{authCtx.isLoggedIn && <img alt='userAvatar' src={localStorage.getItem('avatarImage')} className='userAvatar' />}
 
             <input type="text" id='#AddPost' className="form-control mt-auto mb-auto" placeholder='Add Post' onClick={() => navigate(`/add-post/${communityName}`)} required />
 
@@ -97,7 +114,7 @@ const Community = () => {
           </div>
           <Grid posts={posts} />
         </div>
-        <div className='communityInfoContainer  col-md-2  d-none d-lg-block mt-3' >
+        <div className='communityInfoContainer    d-none d-lg-block mt-3' >
           <div className='communityInfoHeader'>
             About community
           </div>
@@ -106,14 +123,15 @@ const Community = () => {
           </div>
           <hr />
           <div className='communityCreationDate'>
-            <FaBirthdayCake size={20} color='white' /> Created Sep 13, 2017
+            <FaBirthdayCake size={20} color='white' /> Created {date}
           </div>
           <hr />
           <div className='d-flex mt-1' style={{ paddingLeft: '5px' }}>{nrMembers && nrMembers} <BiUser className='mt-1' size={17} color='white' /></div>
           <div className='communityMembers'>Members</div>
           <hr />
           <div className='mb-2 mt-2'>
-            <button className='btn btn-md btn-light rounded-pill col-12 mx-auto ' onClick={() => navigate(`/add-post/${communityName}`)}>Create post</button>
+            {joined ? <button className='btn btn-md btn-light rounded-pill col-12 mx-auto ' onClick={() => navigate(`/add-post/${communityName}`)}>Create post</button>
+              : <button className='btn btn-md btn-light rounded-pill col-12 mx-auto ' onClick={joinCommunityHandler}>Join community</button>}
           </div>
 
         </div>

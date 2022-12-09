@@ -8,7 +8,10 @@ import AddPost from './Components/AddPost/AddPost';
 import Community from './Components/Community/Community';
 import Post from './Components/Post/Post';
 import Search from './Components/Search/Search';
-
+import CommunityEdit from './Components/CommunityEdit/CommunityEdit';
+import Profile from './Components/Profile/Profile';
+import ProfileEdit from './Components/Profile/ProfileEdit';
+import PageNotFound from './Components/PageNotFound/PageNotFound';
 function App() {
   return (
     <div className='App'>
@@ -21,7 +24,10 @@ function App() {
         <Route path="/Community/:communityName" element={<Community />} />
         <Route path="/Community/:communityName/:postId" element={<Post />} />
         <Route path="/search" element={<Search />} />
-
+        <Route path="/profile/:username" element={<Profile />} />
+        <Route path="/profile/edit/:username" element={<ProfileEdit />} />
+        <Route path="/community/settings/:communityName" element={<CommunityEdit />} />
+        <Route path="/PageNotFound" element={<PageNotFound />} />
       </Routes>
     </div>
   );

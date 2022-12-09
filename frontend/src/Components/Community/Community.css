@@ -69,6 +69,7 @@ input[id="#AddPost"]{
     word-wrap: break-word;
     padding-right:5px;
     text-align: justify;
+    font-size: 14px;
 }
 .postInfo{
     display: flex;
@@ -138,7 +139,7 @@ vertical-align: middle;
 
 .communityInfoContainer{
     height: 300px;
-    width: 250px;
+    width: 300px;
     background-color:#1A1A1B;
     color: #D7DADC;
     overflow: hidden;

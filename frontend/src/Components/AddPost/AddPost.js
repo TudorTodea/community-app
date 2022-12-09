@@ -1,13 +1,15 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import './AddPost.css'
 import axios from 'axios';
 import { toastOptions } from '../../Utils/Toastify';
 import { toast } from 'react-toastify';
+import AuthContext from '../../store/auth-context';
 const AddPost = () => {
   const [postData, setPostData] = useState({ title: '', content: '' });
   const { communityName } = useParams();
   const navigate = useNavigate();
+  const authCtx = useContext(AuthContext);
   const variables = {
     Name: communityName,
     writer: localStorage.getItem('userid'),
@@ -17,13 +19,23 @@ const AddPost = () => {
 
   const addPostHandler = async (e) => {
     e.preventDefault();
-    const response = await axios.post(`http://localhost:5000/api/post/createPost`, variables)
-    if (response.data.status) {
-      navigate(`/community/${communityName}`)
+    if (postData.title.length > 2 && postData.content.length > 2) {
+      const response = await axios.post(`http://localhost:5000/api/post/createPost`, variables)
+      if (response.data.status) {
+        navigate(`/community/${communityName}`)
+      } else {
+        toast.error(response.data.msg, toastOptions)
+      }
     } else {
-      toast.error(response.data.msg, toastOptions)
+      toast.error('The title and the content should be at least 3 characters long', toastOptions)
     }
   }
+
+  useEffect(() => {
+    if (!authCtx.isLoggedIn) {
+      navigate(`/login`)
+    }
+  }, [communityName, authCtx.isLoggedIn])
 
   return (
     <div className='createPostContainer col-12 col-md-6'>
