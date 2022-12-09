@@ -11,7 +11,7 @@ An application where you can join/create communities  create posts and discuss d
 ## Project Screen Shot(s)
 
 #### Example:   
-![alt text](https://ibb.co/5TJG96Y)
+![alt text](https://i.ibb.co/kKP5yx3/Screenshot-1.png)
 
 [ PRETEND SCREEN SHOT IS HERE ]
 
