@@ -7,6 +7,7 @@ import { toastOptions } from '../../Utils/Toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { TiArrowBackOutline } from "react-icons/ti";
 import { useDebounce } from '../../Hooks/UseDebounce';
+import { communityAddDescriptionRoute, communityAddImageRoute, getCommunityInfoRoute } from '../../Utils/Routes';
 
 const CommunityEdit = () => {
     const { communityName } = useParams();
@@ -26,7 +27,7 @@ const CommunityEdit = () => {
         const image = await axios.post(`https://api.cloudinary.com/v1_1/dle0bi4zo/image/upload`, data)
         if (image.statusText === 'OK') {
             setUrl({ ...url, avatar: image.data.url })
-            const response = await axios.post(`http://localhost:5000/api/community/communityAddImage/`, { avatar: image.data.url, communityName })
+            const response = await axios.post(communityAddImageRoute, { avatar: image.data.url, communityName })
             if (response.status) {
                 toast.success('Succesfully updated the avatar', toastOptions)
             }
@@ -45,7 +46,7 @@ const CommunityEdit = () => {
         const image = await axios.post(`https://api.cloudinary.com/v1_1/dle0bi4zo/image/upload`, data)
         if (image.statusText === 'OK') {
             setUrl({ ...url, banner: image.data.url })
-            const response = await axios.post(`http://localhost:5000/api/community/communityAddImage/`, { banner: image.data.url, communityName })
+            const response = await axios.post(communityAddImageRoute, { banner: image.data.url, communityName })
             console.log(response);
             if (response.status) {
                 toast.success('Succesfully updated the banner', toastOptions)
@@ -59,7 +60,7 @@ const CommunityEdit = () => {
     useEffect(() => {
         const descriptionHandler = async () => {
             if (debouncedDescription) {
-                const response = await axios.post(`http://localhost:5000/api/community/addDescription/`, { communityName, description })
+                const response = await axios.post(communityAddDescriptionRoute, { communityName, description })
                 if (response.status) {
                     toast.success('Description succesfully updated', toastOptions)
                 }
@@ -72,7 +73,7 @@ const CommunityEdit = () => {
     }, [debouncedDescription])
     useEffect(() => {
         const getCommunityInfo = async () => {
-            const response = await axios.get(`http://localhost:5000/api/community/getCommunityInfo/${communityName}`)
+            const response = await axios.get(`${getCommunityInfoRoute}${communityName}`)
             if (response.data.status) {
                 if (response.data.community.mods.includes(localStorage.getItem('userid'))) {
                     setUrl({ avatar: response.data.community.avatar, banner: response.data.community.banner })

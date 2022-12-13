@@ -5,6 +5,7 @@ import axios from 'axios';
 import { toastOptions } from '../../Utils/Toastify';
 import { toast } from 'react-toastify';
 import AuthContext from '../../store/auth-context';
+import { createPostRoute } from '../../Utils/Routes';
 const AddPost = () => {
   const [postData, setPostData] = useState({ title: '', content: '' });
   const { communityName } = useParams();
@@ -20,7 +21,7 @@ const AddPost = () => {
   const addPostHandler = async (e) => {
     e.preventDefault();
     if (postData.title.length > 2 && postData.content.length > 2) {
-      const response = await axios.post(`http://localhost:5000/api/post/createPost`, variables)
+      const response = await axios.post(createPostRoute, variables)
       if (response.data.status) {
         navigate(`/community/${communityName}`)
       } else {

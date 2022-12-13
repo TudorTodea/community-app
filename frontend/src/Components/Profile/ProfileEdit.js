@@ -7,6 +7,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { BsInstagram, BsFacebook, BsReddit } from "react-icons/bs";
 import { useDebounce } from '../../Hooks/UseDebounce';
 import { useNavigate, useParams } from 'react-router-dom';
+import { getUserRoute, setUserDescriptionRoute, updateSocialMediaRoute, updateUserAvatarRoute } from '../../Utils/Routes';
 
 const ProfileEdit = () => {
     const [avatarImage, setAvatarImage] = useState('');
@@ -29,7 +30,7 @@ const ProfileEdit = () => {
         const image = await axios.post(`https://api.cloudinary.com/v1_1/dle0bi4zo/image/upload`, data)
         if (image.statusText === 'OK') {
             setUrl(image.data.url)
-            const response = await axios.put(`http://localhost:5000/api/auth/updateUserAvatar/`, { avatar: image.data.url, userId: localStorage.getItem('userid') })
+            const response = await axios.put(updateUserAvatarRoute, { avatar: image.data.url, userId: localStorage.getItem('userid') })
             if (response.status) {
                 toast.success('Succesfully updated the avatar', toastOptions)
             }
@@ -42,7 +43,7 @@ const ProfileEdit = () => {
     useEffect(() => {
         const descriptionHandler = async () => {
             if (debouncedDescription) {
-                const response = await axios.post(`http://localhost:5000/api/auth/setUserDescription/`, { userId: localStorage.getItem('userid'), description })
+                const response = await axios.post(setUserDescriptionRoute, { userId: localStorage.getItem('userid'), description })
                 if (response.status) {
                     toast.success('Description succesfully updated', toastOptions)
                 }
@@ -57,7 +58,7 @@ const ProfileEdit = () => {
     useEffect(() => {
         const updateSocialMedia = async () => {
             if (debouncedFacebook) {
-                const response = await axios.put(`http://localhost:5000/api/auth/updateSocialMedia/`, { userId: localStorage.getItem('userid'), facebook: searchTerm.facebook })
+                const response = await axios.put(updateSocialMediaRoute, { userId: localStorage.getItem('userid'), facebook: searchTerm.facebook })
                 if (response.status) {
                     toast.success('Facebook link updated', toastOptions)
                 }
@@ -66,7 +67,7 @@ const ProfileEdit = () => {
                 }
             }
             if (debouncedInstagram) {
-                const response = await axios.put(`http://localhost:5000/api/auth/updateSocialMedia/`, { userId: localStorage.getItem('userid'), instagram: searchTerm.instagram })
+                const response = await axios.put(updateSocialMediaRoute, { userId: localStorage.getItem('userid'), instagram: searchTerm.instagram })
                 if (response.status) {
                     toast.success('Instagram link updated', toastOptions)
                 }
@@ -75,7 +76,7 @@ const ProfileEdit = () => {
                 }
             }
             if (debouncedReddit) {
-                const response = await axios.put(`http://localhost:5000/api/auth/updateSocialMedia/`, { userId: localStorage.getItem('userid'), reddit: searchTerm.reddit })
+                const response = await axios.put(updateSocialMediaRoute, { userId: localStorage.getItem('userid'), reddit: searchTerm.reddit })
                 if (response.status) {
                     toast.success('Reddit link updated', toastOptions)
                 }
@@ -94,7 +95,7 @@ const ProfileEdit = () => {
             navigate('/PageNotFound')
         }
         const getUser = async () => {
-            const response = await axios.get(`http://localhost:5000/api/auth/getUser/${username}`)
+            const response = await axios.get(`${getUserRoute}${username}`)
             if (response.status) {
                 setUrl(response.data.user.avatarImage)
                 setSocialMedia({ facebook: response.data.user.socialMedia.facebook, instagram: response.data.user.socialMedia.instagram, reddit: response.data.user.socialMedia.reddit })
@@ -110,7 +111,7 @@ const ProfileEdit = () => {
 
                 <div className='mt-5  col-12'>
                     <label htmlFor="description" className="form-label textColor1">Description (optional)</label>
-                    <div id="description" class="form-text">Number of characters : {description.length}/200</div>
+                    <div id="description" className="form-text">Number of characters : {description.length}/200</div>
                     <div className='d-flex vw-50'>
                         <textarea placeholder='Description (optional)' name='description' maxLength={200} className="form-control bg-dark text-light"
                             id="description" onChange={(e) => setDescription(e.target.value)} />

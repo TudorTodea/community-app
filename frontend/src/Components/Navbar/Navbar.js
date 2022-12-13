@@ -7,6 +7,7 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Search from '../Search/Search';
 import { CreateCommunity } from './CreateCommunity';
+import { getCommunitiesByUserIdRoute, getCommunitiesModeratedByUserIdRoute } from '../../Utils/Routes';
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -18,13 +19,13 @@ const Navbar = () => {
   var imageBasePath = window.location.protocol + "//" + window.location.host + "/images/";
   useEffect(() => {
     const getModeratedCommunities = async () => {
-      const response = await axios.get(`http://localhost:5000/api/community/getCommunitiesModeratedByUserId/${userId}`)
+      const response = await axios.get(`${getCommunitiesModeratedByUserIdRoute}${userId}`)
       if (response.status) {
         setModeratedCommunities(response.data.communities)
       }
     }
     const getCommunities = async () => {
-      const response = await axios.get(`http://localhost:5000/api/community/getCommunitiesByUserId/${userId}`)
+      const response = await axios.get(`${getCommunitiesByUserIdRoute}${userId}`)
       if (response.status) {
         setCommunities(response.data.communities)
       }

@@ -4,6 +4,7 @@ import { BiDownvote } from "react-icons/bi";
 import axios from 'axios';
 import './LikeDislike.css'
 import AuthContext from '../../store/auth-context';
+import { getLikesRoute, unDislikeRoute, unLikeRoute, upDislikeRoute, upLikeRoute } from '../../Utils/Routes';
 const LikeDislike = ({ post }) => {
     const [likes, setLikes] = useState(0);
     const [LikeAction, setLikeAction] = useState(null);
@@ -15,7 +16,7 @@ const LikeDislike = ({ post }) => {
         e.preventDefault();
         if (authCtx.isLoggedIn) {
             if (DislikeAction === null) {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/upDislike/`, { postId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(upDislikeRoute, { postId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     if (LikeAction !== null) {
                         setLikes((prev) => prev - 2)
@@ -27,7 +28,7 @@ const LikeDislike = ({ post }) => {
                     }
                 }
             } else {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/unDislike/`, { postId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(unDislikeRoute, { postId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     setLikes((prev) => prev + 1)
                     setDislikeAction(null)
@@ -39,7 +40,7 @@ const LikeDislike = ({ post }) => {
         e.preventDefault();
         if (authCtx.isLoggedIn) {
             if (LikeAction === null) {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/upLike/`, { postId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(upLikeRoute, { postId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     if (DislikeAction !== null) {
                         setLikes((prev) => prev + 2)
@@ -51,7 +52,7 @@ const LikeDislike = ({ post }) => {
                     }
                 }
             } else {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/unLike/`, { postId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(unLikeRoute, { postId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     setLikes((prev) => prev - 1)
                     setLikeAction(null);
@@ -61,7 +62,7 @@ const LikeDislike = ({ post }) => {
     }
     useEffect(() => {
         const getLikes = async () => {
-            const response = await axios.post(`http://localhost:5000/api/likedislike/getLikes/`, { postId })
+            const response = await axios.post(getLikesRoute, { postId })
             if (response.status) {
                 setLikes(response.data.likeDislikeDiff)
                 response.data.likes.map((e) => {

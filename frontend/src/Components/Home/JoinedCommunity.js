@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useState, useContext } from 'react'
 import { useNavigate } from 'react-router-dom';
 import AuthContext from '../../store/auth-context';
+import { getCommunityInfoRoute, joinCommunityRoute } from '../../Utils/Routes';
 const JoinedCommunity = ({ Name }) => {
     const [joined, setJoined] = useState(false);
     const authCtx = useContext(AuthContext);
@@ -10,7 +11,7 @@ const JoinedCommunity = ({ Name }) => {
         if (!authCtx.isLoggedIn) {
             navigate(`/login`)
         } else {
-            const response = await axios.post(`http://localhost:5000/api/community/joinCommunity/`, { communityName, userId: localStorage.getItem('userid') })
+            const response = await axios.post(joinCommunityRoute, { communityName, userId: localStorage.getItem('userid') })
             if (response.status) {
                 setJoined(!joined)
             }
@@ -18,7 +19,7 @@ const JoinedCommunity = ({ Name }) => {
     }
     useEffect(() => {
         const getCommunityInfo = async () => {
-            const response = await axios.get(`http://localhost:5000/api/community/getCommunityInfo/${Name}`)
+            const response = await axios.get(`${getCommunityInfoRoute}${Name}`)
             if (response.status) {
                 if (response.data.community.members.includes(localStorage.getItem('userid'))) {
                     setJoined(true);

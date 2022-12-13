@@ -9,7 +9,8 @@ import { Avatar } from 'antd';
 import { Comment } from '@ant-design/compatible';
 import DateContext from '../../store/date-context';
 import AuthContext from '../../store/auth-context';
-const SingleComment = ({ commentId, writerId, author, content, currentUserId, avatar, postId, refreshFunction, createdAt }) => {
+import { addCommentRoute, getLikesRoute, unDislikeRoute, unLikeRoute, upDislikeRoute, upLikeRoute } from '../../Utils/Routes';
+const SingleComment = ({ commentId, author, content, currentUserId, avatar, postId, refreshFunction, createdAt }) => {
 
     const [likes, setLikes] = useState(0)
     const [likeAction, setLikeAction] = useState(null)
@@ -24,7 +25,7 @@ const SingleComment = ({ commentId, writerId, author, content, currentUserId, av
         e.preventDefault();
         if (authCtx.isLoggedIn) {
             if (likeAction === null) {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/upLike/`, { commentId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(upLikeRoute, { commentId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     if (dislikeAction !== null) {
                         setLikes((prev) => prev + 2)
@@ -36,7 +37,7 @@ const SingleComment = ({ commentId, writerId, author, content, currentUserId, av
                     }
                 }
             } else {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/unLike/`, { commentId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(unLikeRoute, { commentId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     setLikes((prev) => prev - 1)
                     setLikeAction(null);
@@ -48,7 +49,7 @@ const SingleComment = ({ commentId, writerId, author, content, currentUserId, av
         e.preventDefault();
         if (authCtx.isLoggedIn) {
             if (dislikeAction === null) {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/upDislike/`, { commentId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(upDislikeRoute, { commentId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     if (likeAction !== null) {
                         setLikes((prev) => prev - 2)
@@ -60,7 +61,7 @@ const SingleComment = ({ commentId, writerId, author, content, currentUserId, av
                     }
                 }
             } else {
-                const response = await axios.post(`http://localhost:5000/api/likedislike/unDislike/`, { commentId, userId: localStorage.getItem('userid') })
+                const response = await axios.post(unDislikeRoute, { commentId, userId: localStorage.getItem('userid') })
                 if (response.status) {
                     setLikes((prev) => prev + 1)
                     setDislikeAction(null)
@@ -80,7 +81,7 @@ const SingleComment = ({ commentId, writerId, author, content, currentUserId, av
                 }
 
 
-                const response = await axios.post(`http://localhost:5000/api/comment/addComment/`, variables)
+                const response = await axios.post(addCommentRoute, variables)
                 if (response.status) {
                     setCommentValue("")
                     setReplyOpen(!replyOpen)
@@ -97,7 +98,7 @@ const SingleComment = ({ commentId, writerId, author, content, currentUserId, av
     useEffect(() => {
 
         const getLikes = async () => {
-            const response = await axios.post(`http://localhost:5000/api/likedislike/getLikes/`, { commentId })
+            const response = await axios.post(getLikesRoute, { commentId })
             if (response.data.status) {
                 setLikes(response.data.likeDislikeDiff);
                 response.data.likes.map((e) => {

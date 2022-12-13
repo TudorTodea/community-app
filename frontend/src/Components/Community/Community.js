@@ -9,6 +9,7 @@ import { Grid } from '../Grid/Grid';
 import { BiUser } from "react-icons/bi";
 import { FiEdit } from "react-icons/fi";
 import AuthContext from '../../store/auth-context';
+import { getCommunityInfoRoute, getCommunityPostsRoute, joinCommunityRoute } from '../../Utils/Routes';
 const Community = () => {
   const { communityName } = useParams()
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Community = () => {
       navigate(`/login`)
       return
     }
-    const response = await axios.post(`http://localhost:5000/api/community/joinCommunity/`, { communityName, userId: localStorage.getItem('userid') })
+    const response = await axios.post(joinCommunityRoute, { communityName, userId: localStorage.getItem('userid') })
     if (response.status) {
       if (joined) {
         setNrMembers(nrMembers - 1)
@@ -41,13 +42,13 @@ const Community = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await axios.get(`http://localhost:5000/api/post/getPosts/${communityName}`)
+      const response = await axios.get(`${getCommunityPostsRoute}${communityName}`)
       if (response.data.status) {
         setPosts(response.data.posts)
       }
     }
     const getCommunityInfo = async () => {
-      const response = await axios.get(`http://localhost:5000/api/community/getCommunityInfo/${communityName}`)
+      const response = await axios.get(`${getCommunityInfoRoute}${communityName}`)
       if (response.data.status) {
         setDescription(response.data.community.description)
         setNrMembers(response.data.count);

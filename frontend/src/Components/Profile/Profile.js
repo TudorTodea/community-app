@@ -4,6 +4,7 @@ import { FiSettings } from "react-icons/fi";
 import { useNavigate, useParams } from 'react-router-dom';
 import './Profile.css'
 import { BsInstagram, BsFacebook, BsReddit } from "react-icons/bs";
+import { getUserRoute } from '../../Utils/Routes';
 
 const Profile = () => {
     const navigate = useNavigate();
@@ -11,7 +12,7 @@ const Profile = () => {
     const [user, setUser] = useState();
     useEffect(() => {
         const getUser = async () => {
-            const response = await axios.get(`http://localhost:5000/api/auth/getUser/${username}`)
+            const response = await axios.get(`${getUserRoute}${username}`)
             if (response.data.status) {
                 setUser(response.data.user)
             } else {

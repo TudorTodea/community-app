@@ -4,6 +4,7 @@ import axios from 'axios';
 import { Grid } from '../Grid/Grid';
 import { useNavigate } from 'react-router-dom';
 import JoinedCommunity from './JoinedCommunity';
+import { getRandomCommunitiesRoute, getRecentPostsRoute } from '../../Utils/Routes';
 
 export const Home = () => {
   const [posts, setPosts] = useState([]);
@@ -12,13 +13,13 @@ export const Home = () => {
 
   useEffect(() => {
     const getPosts = async () => {
-      const response = await axios.get(`http://localhost:5000/api/post/getRecentPosts/`)
+      const response = await axios.get(getRecentPostsRoute)
       if (response.data.status) {
         setPosts(response.data.data)
       }
     }
     const getCommunities = async () => {
-      const response = await axios.get(`http://localhost:5000/api/community/getRandomCommunities/`)
+      const response = await axios.get(getRandomCommunitiesRoute)
       if (response.data.status) {
         setCommunities(response.data.communities)
       }

@@ -13,6 +13,7 @@ import Picker from "emoji-picker-react";
 import ReplyComment from './ReplyComment';
 import DateContext from '../../store/date-context';
 import AuthContext from '../../store/auth-context';
+import { addCommentRoute, getCommentsRoute, getPostByIdRoute } from '../../Utils/Routes';
 const Post = () => {
   const [post, setPost] = useState();
   const { postId } = useParams()
@@ -40,7 +41,7 @@ const Post = () => {
   useEffect(() => {
     const getPostData = async () => {
 
-      const response = await axios.get(`http://localhost:5000/api/post/getPostById/${postId}`)
+      const response = await axios.get(`${getPostByIdRoute}${postId}`)
 
       if (response.data.status) {
         setPost(response.data.post);
@@ -50,7 +51,7 @@ const Post = () => {
     }
     const getComments = async () => {
 
-      const response = await axios.get(`http://localhost:5000/api/comment/getComments/${postId}`)
+      const response = await axios.get(`${getCommentsRoute}${postId}`)
       if (response.data.status) {
         setCommentsList(response.data.comments);
         setNrComments(response.data.count);
@@ -66,7 +67,7 @@ const Post = () => {
       navigate(`/login`)
     }
     if (comment.length > 0) {
-      const response = await axios.post(`http://localhost:5000/api/comment/addComment/`, addCommentVariables)
+      const response = await axios.post(addCommentRoute, addCommentVariables)
       if (!response.status) {
         toast.error('Error while adding the comment', toastOptions)
       } else {
